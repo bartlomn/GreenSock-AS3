@@ -7,6 +7,7 @@
    <groupId>com.greensock.tweenmax</groupId>
    <artifactId>tweenmax-as3-library</artifactId>
    <version>12.1.0</version>
+   <packaging>swc</packaging>
 
    <distributionManagement>
       <repository>
@@ -15,27 +16,46 @@
       </repository>
    </distributionManagement>
 
+   <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>org.apache.flex</groupId>
+            <artifactId>framework</artifactId>
+            <version>4.11.0.20131017</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+      </dependencies>
+   </dependencyManagement>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.apache.flex.framework</groupId>
+         <artifactId>flex-framework</artifactId>
+         <type>pom</type>
+      </dependency>
+   </dependencies>
+
    <build>
+      <sourceDirectory>src</sourceDirectory>
       <plugins>
          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <version>1.7</version>
-            <executions>
-               <!-- deploy manually created artifact -->
-               <execution>
-                  <id>attach-artifact</id>
-                  <phase>package</phase>
-                  <goals>
-                     <goal>run</goal>
-                  </goals>
-                  <configuration>
-                     <target>
-                        <attachartifact file="bin/TweenMax-AS3-Library.swc" type="swc" />
-                     </target>
-                  </configuration>
-               </execution>
-            </executions>
+            <groupId>net.flexmojos.oss</groupId>
+            <artifactId>flexmojos-maven-plugin</artifactId>
+            <version>7.0.0-SNAPSHOT</version>
+            <extensions>true</extensions>
+            <configuration>
+               <debug>true</debug>
+               <showWarnings>false</showWarnings>
+            </configuration>
+            <dependencies>
+               <dependency>
+                  <groupId>org.apache.flex</groupId>
+                  <artifactId>compiler</artifactId>
+                  <version>4.11.0.20131017</version>
+                  <type>pom</type>
+               </dependency>
+            </dependencies>
          </plugin>
       </plugins>
    </build>
